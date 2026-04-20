@@ -10,7 +10,7 @@
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
     <link rel="canonical" href="https://wal-katha.github.io/sinhala-wal-katha-2026/">
 
-    <meta name="google-site-verification" content="මෙතනට_ඔයාගේ_කෝඩ්_එක_දාන්න" />
+    <meta name="google-site-verification" content="UuKTkWg7Xh3ENF7elBwANx_zHnmZR6NyCXLJlJ_4QG4" />
 
     <link rel="manifest" href="manifest.json">
     <link rel="icon" type="image/jpeg" href="logo.jpg">
@@ -46,7 +46,6 @@
         body { 
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; 
             line-height: 1.6; margin: 0; padding: 0; background: #f4f7f6; color: var(--dark); text-align: center; 
-            /* Text Select කිරීම වැළැක්වීම */
             -webkit-user-select: none;
             -moz-user-select: none;
             -ms-user-select: none;
@@ -63,17 +62,14 @@
     </style>
 
     <script>
-        // Right Click තහනම් කිරීම
         document.addEventListener('contextmenu', event => event.preventDefault());
-
-        // Keyboard shortcuts (Ctrl+U, Ctrl+C, Ctrl+S, Ctrl+Shift+I) තහනම් කිරීම
         document.onkeydown = function(e) {
             if (e.ctrlKey && 
-                (e.keyCode === 67 || // Ctrl+C
-                 e.keyCode === 86 || // Ctrl+V
-                 e.keyCode === 85 || // Ctrl+U
-                 e.keyCode === 83 || // Ctrl+S
-                 (e.shiftKey && e.keyCode === 73))) { // Ctrl+Shift+I
+                (e.keyCode === 67 || 
+                 e.keyCode === 86 || 
+                 e.keyCode === 85 || 
+                 e.keyCode === 83 || 
+                 (e.shiftKey && e.keyCode === 73))) { 
                 return false;
             } else {
                 return true;
