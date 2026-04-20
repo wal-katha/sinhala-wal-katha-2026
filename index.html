@@ -43,16 +43,43 @@
 
     <style>
         :root { --primary: #d32f2f; --dark: #1a1a1a; --light: #ffffff; }
-        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; line-height: 1.6; margin: 0; padding: 0; background: #f4f7f6; color: var(--dark); text-align: center; }
+        body { 
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; 
+            line-height: 1.6; margin: 0; padding: 0; background: #f4f7f6; color: var(--dark); text-align: center; 
+            /* Text Select කිරීම වැළැක්වීම */
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
         .navbar { background: var(--primary); color: var(--light); padding: 15px; font-weight: bold; font-size: 20px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
         .hero { padding: 40px 20px; background: var(--light); margin-bottom: 20px; }
         .hero h1 { font-size: 28px; margin-bottom: 10px; color: var(--primary); }
         .main-btn { display: inline-block; background: var(--primary); color: var(--light); padding: 18px 35px; text-decoration: none; border-radius: 50px; font-size: 22px; font-weight: bold; margin-top: 25px; transition: 0.3s; box-shadow: 0 5px 15px rgba(211, 47, 47, 0.4); }
         .main-btn:hover { transform: scale(1.05); background: #b71c1c; }
         .info-box { max-width: 600px; margin: 20px auto; padding: 20px; background: #fff; border-radius: 10px; font-size: 17px; }
-        .hidden-seo { font-size: 12px; color: #f4f7f6; margin-top: 10px; } /* Google Bot එකට Keywords පෙන්වීමට */
+        .hidden-seo { font-size: 12px; color: #f4f7f6; margin-top: 10px; }
         .footer { padding: 20px; font-size: 14px; color: #777; border-top: 1px solid #ddd; margin-top: 20px; }
     </style>
+
+    <script>
+        // Right Click තහනම් කිරීම
+        document.addEventListener('contextmenu', event => event.preventDefault());
+
+        // Keyboard shortcuts (Ctrl+U, Ctrl+C, Ctrl+S, Ctrl+Shift+I) තහනම් කිරීම
+        document.onkeydown = function(e) {
+            if (e.ctrlKey && 
+                (e.keyCode === 67 || // Ctrl+C
+                 e.keyCode === 86 || // Ctrl+V
+                 e.keyCode === 85 || // Ctrl+U
+                 e.keyCode === 83 || // Ctrl+S
+                 (e.shiftKey && e.keyCode === 73))) { // Ctrl+Shift+I
+                return false;
+            } else {
+                return true;
+            }
+        };
+    </script>
 </head>
 <body>
 
