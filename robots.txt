@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+
+# Sitemap ලින්ක් එක Google Bot හට පෙන්වීමට
+Sitemap: https://wal-katha.github.io/sinhala-wal-katha-2026/sitemap.xml
+
+# Crawl-delay එකක් අවශ්‍ය නැත, එවිට වේගයෙන් Index වේ
