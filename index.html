@@ -50,6 +50,9 @@
 
     <style>
         :root { --primary: #d32f2f; --dark: #1a1a1a; --light: #ffffff; }
+
+        * { box-sizing: border-box; }
+
         body { 
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; 
             line-height: 1.6; margin: 0; padding: 0; background: #f4f7f6; color: var(--dark); text-align: center; 
@@ -57,14 +60,229 @@
             -moz-user-select: none;
             -ms-user-select: none;
             user-select: none;
+            overflow-x: hidden;
         }
-        .navbar { background: var(--primary); color: var(--light); padding: 15px; font-weight: bold; font-size: 20px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
-        .hero { padding: 40px 20px; background: var(--light); margin-bottom: 20px; }
-        .hero h1 { font-size: 28px; margin-bottom: 10px; color: var(--primary); }
-        .main-btn { display: inline-block; background: var(--primary); color: var(--light); padding: 18px 35px; text-decoration: none; border-radius: 50px; font-size: 22px; font-weight: bold; margin-top: 25px; transition: 0.3s; box-shadow: 0 5px 15px rgba(211, 47, 47, 0.4); }
-        .main-btn:hover { transform: scale(1.05); background: #b71c1c; }
-        .info-box { max-width: 600px; margin: 20px auto; padding: 20px; background: #fff; border-radius: 10px; font-size: 17px; }
-        .footer { padding: 20px; font-size: 14px; color: #777; border-top: 1px solid #ddd; margin-top: 20px; }
+
+        /* ===== NAVBAR ===== */
+        .navbar {
+            background: var(--primary);
+            color: var(--light);
+            padding: 15px;
+            font-weight: bold;
+            font-size: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+            position: relative;
+            overflow: hidden;
+        }
+        .navbar::after {
+            content: '';
+            position: absolute;
+            top: 0; left: -100%;
+            width: 60%;
+            height: 100%;
+            background: rgba(255,255,255,0.15);
+            transform: skewX(-20deg);
+            animation: navShine 3s infinite;
+        }
+        @keyframes navShine {
+            0% { left: -100%; }
+            100% { left: 200%; }
+        }
+
+        /* ===== HERO ===== */
+        .hero {
+            padding: 40px 20px;
+            background: var(--light);
+            margin-bottom: 20px;
+            animation: fadeInDown 0.8s ease;
+        }
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ===== TYPEWRITER ===== */
+        .hero h1 {
+            font-size: 28px;
+            margin-bottom: 10px;
+            color: var(--primary);
+            display: inline-block;
+            overflow: hidden;
+            white-space: nowrap;
+            border-right: 3px solid var(--primary);
+            width: 0;
+            animation: typing 2.5s steps(40) forwards, blink 0.7s step-end infinite;
+        }
+        @keyframes typing {
+            from { width: 0; }
+            to { width: 100%; }
+        }
+        @keyframes blink {
+            50% { border-color: transparent; }
+        }
+
+        .hero p {
+            opacity: 0;
+            animation: fadeIn 0.8s ease 2.8s forwards;
+        }
+        @keyframes fadeIn {
+            to { opacity: 1; }
+        }
+
+        /* ===== INFO BOX ===== */
+        .info-box {
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 20px;
+            background: #fff;
+            border-radius: 10px;
+            font-size: 17px;
+            border-left: 4px solid var(--primary);
+            opacity: 0;
+            transform: translateX(-20px);
+            animation: slideIn 0.8s ease 3s forwards;
+            box-shadow: 0 3px 15px rgba(0,0,0,0.08);
+        }
+        @keyframes slideIn {
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        /* ===== TYPEWRITER for info-box text ===== */
+        .typed-text {
+            display: inline;
+        }
+        .type-cursor {
+            display: inline-block;
+            width: 2px;
+            height: 1em;
+            background: var(--primary);
+            margin-left: 2px;
+            vertical-align: text-bottom;
+            animation: blink 0.7s step-end infinite;
+        }
+
+        /* ===== BUTTON ===== */
+        .main-btn {
+            display: inline-block;
+            background: var(--primary);
+            color: var(--light);
+            padding: 18px 35px;
+            text-decoration: none;
+            border-radius: 50px;
+            font-size: 22px;
+            font-weight: bold;
+            margin-top: 25px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(211,47,47,0.4);
+            opacity: 0;
+            animation: popIn 0.6s ease 3.5s forwards;
+            transition: transform 0.15s ease, box-shadow 0.15s ease;
+        }
+        @keyframes popIn {
+            0% { opacity: 0; transform: scale(0.8); }
+            70% { transform: scale(1.08); }
+            100% { opacity: 1; transform: scale(1); }
+        }
+        .main-btn::before {
+            content: '';
+            position: absolute;
+            top: 50%; left: 50%;
+            width: 0; height: 0;
+            background: rgba(255,255,255,0.25);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: width 0.4s ease, height 0.4s ease;
+        }
+        .main-btn:hover {
+            background: #b71c1c;
+            transform: scale(1.06);
+            box-shadow: 0 8px 25px rgba(211,47,47,0.6);
+        }
+        .main-btn:active {
+            transform: scale(0.95);
+            box-shadow: 0 2px 8px rgba(211,47,47,0.4);
+        }
+        .main-btn:active::before {
+            width: 300px;
+            height: 300px;
+        }
+
+        /* pulse animation on button */
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(211,47,47,0.5); }
+            70% { box-shadow: 0 0 0 15px rgba(211,47,47,0); }
+            100% { box-shadow: 0 0 0 0 rgba(211,47,47,0); }
+        }
+        .main-btn.loaded {
+            animation: pulse 2s infinite;
+        }
+
+        /* ===== AD FRAME ===== */
+        .ad-wrap {
+            width: 100%;
+            margin: 10px auto;
+            position: relative;
+            z-index: 99998;
+            opacity: 0;
+            animation: fadeIn 1s ease 1s forwards;
+        }
+
+        /* ===== FOOTER ===== */
+        .footer {
+            padding: 20px;
+            font-size: 14px;
+            color: #777;
+            border-top: 1px solid #ddd;
+            margin-top: 20px;
+            opacity: 0;
+            animation: fadeIn 1s ease 4s forwards;
+        }
+
+        /* ===== FLOATING PARTICLES ===== */
+        .particles {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            pointer-events: none;
+            z-index: 0;
+            overflow: hidden;
+        }
+        .particle {
+            position: absolute;
+            bottom: -10px;
+            width: 8px; height: 8px;
+            background: rgba(211,47,47,0.15);
+            border-radius: 50%;
+            animation: floatUp linear infinite;
+        }
+        @keyframes floatUp {
+            0% { transform: translateY(0) scale(1); opacity: 0.6; }
+            100% { transform: translateY(-100vh) scale(0); opacity: 0; }
+        }
+
+        /* ===== SCROLL TO TOP ===== */
+        .scroll-top {
+            position: fixed;
+            bottom: 25px; right: 25px;
+            background: var(--primary);
+            color: #fff;
+            border: none;
+            border-radius: 50%;
+            width: 45px; height: 45px;
+            font-size: 20px;
+            cursor: pointer;
+            opacity: 0;
+            transition: opacity 0.3s, transform 0.3s;
+            z-index: 9999;
+            box-shadow: 0 3px 10px rgba(211,47,47,0.4);
+        }
+        .scroll-top.show {
+            opacity: 1;
+        }
+        .scroll-top:hover {
+            transform: translateY(-3px);
+        }
     </style>
 
     <script>
@@ -85,10 +303,14 @@
 </head>
 <body>
 
+<!-- Floating particles background -->
+<div class="particles" id="particles"></div>
+
 <div class="navbar">සිංහල වැල් කතා - 2026</div>
 
+<!-- Top Ad -->
 <!-- BEGIN AADS AD UNIT 2435171 -->
-<div id="frame" style="width:100%;margin:auto;position:relative;z-index:99998;">
+<div class="ad-wrap">
     <iframe data-aa='2435171' src='https://acceptable.a-ads.com/2435171/?size=Adaptive'
         style='border:0;padding:0;width:70%;height:auto;overflow:hidden;display:block;margin:auto'></iframe>
 </div>
@@ -99,23 +321,66 @@
     <p>ශ්‍රී ලංකාවේ ජනප්‍රියම සහ අලුත්ම <strong>wala katha</strong> එකතුව</p>
     
     <div class="info-box">
-        <p>අපගේ වෙබ් අඩවියේ අලුත්ම වැල් කතා, අම්මා කතා සහ ආදර කතා සියල්ල දැන් සජීවීව කියවිය හැකිය. දිනපතා අලුත් වන කතා මාලා සඳහා පහත බොත්තම ක්ලික් කර පිවිසෙන්න.</p>
+        <p><span class="typed-text" id="typedInfo"></span><span class="type-cursor"></span></p>
     </div>
 
-    <a href="https://www.xn--3zc2b5bl5c6a.com/" class="main-btn" rel="bookmark">සියලුම කතා කියවන්න - Click Here</a>
+    <a href="https://www.xn--3zc2b5bl5c6a.com/" class="main-btn" id="mainBtn" rel="bookmark">
+        සියලුම කතා කියවන්න - Click Here
+    </a>
 </div>
 
 <div class="footer">
     &copy; 2026 Sinhala Wal Katha Collection. All Rights Reserved.<br>
     Providing best Wal Katha and Wala Katha experience for Sri Lankans.
 
+    <!-- Bottom Ad -->
     <!-- BEGIN AADS AD UNIT 2435171 -->
-    <div style="width:100%;margin:10px auto 0 auto;position:relative;z-index:99998;">
+    <div class="ad-wrap" style="margin-top:15px;">
         <iframe data-aa='2435171' src='https://acceptable.a-ads.com/2435171/?size=Adaptive'
             style='border:0;padding:0;width:70%;height:auto;overflow:hidden;display:block;margin:auto'></iframe>
     </div>
     <!-- END AADS AD UNIT 2435171 -->
 </div>
+
+<!-- Scroll to top button -->
+<button class="scroll-top" id="scrollTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+
+<script>
+    // ===== PARTICLES =====
+    const container = document.getElementById('particles');
+    for (let i = 0; i < 18; i++) {
+        const p = document.createElement('div');
+        p.classList.add('particle');
+        p.style.left = Math.random() * 100 + '%';
+        p.style.width = p.style.height = (5 + Math.random() * 8) + 'px';
+        p.style.animationDuration = (6 + Math.random() * 10) + 's';
+        p.style.animationDelay = (Math.random() * 8) + 's';
+        container.appendChild(p);
+    }
+
+    // ===== TYPEWRITER for info box =====
+    const infoText = "අපගේ වෙබ් අඩවියේ අලුත්ම වැල් කතා, අම්මා කතා සහ ආදර කතා සියල්ල දැන් සජීවීව කියවිය හැකිය. දිනපතා අලුත් වන කතා මාලා සඳහා පහත බොත්තම ක්ලික් කර පිවිසෙන්න.";
+    const typedEl = document.getElementById('typedInfo');
+    let i = 0;
+    setTimeout(() => {
+        const timer = setInterval(() => {
+            if (i < infoText.length) {
+                typedEl.textContent += infoText[i];
+                i++;
+            } else {
+                clearInterval(timer);
+                // Add pulse to button after typing done
+                document.getElementById('mainBtn').classList.add('loaded');
+            }
+        }, 35);
+    }, 3200);
+
+    // ===== SCROLL TO TOP =====
+    const scrollBtn = document.getElementById('scrollTop');
+    window.addEventListener('scroll', () => {
+        scrollBtn.classList.toggle('show', window.scrollY > 200);
+    });
+</script>
 
 </body>
 </html>
