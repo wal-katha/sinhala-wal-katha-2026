@@ -1,10 +1,10 @@
 # Site Settings
 title: Sinhala Wal Katha 2026
-description: අලුත්ම සිංහල වල් කතා 2026 - Sinhala Wal Katha, Amma Katha සහ Romantic කතා එකතුව
+description: අලුත්ම සිංහල වල් කතා 2026 - Sinhala Wal Katha සහ Romantic කතා එකතුව
 url: "https://wal-katha.github.io"
 baseurl: "/sinhala-wal-katha-2026"
 
-# SEO Settings
+# Language & Timezone
 lang: si
 timezone: Asia/Colombo
 
@@ -13,24 +13,6 @@ author:
   name: Wal Katha
   url: https://wal-katha.github.io/sinhala-wal-katha-2026/
 
-# Build Settings
-markdown: kramdown
-permalink: pretty
-
-# SEO Plugin
-plugins:
-  - jekyll-sitemap
-  - jekyll-seo-tag
-
-# Social
-twitter:
-  username: walkatha2026
-
-# Google
-google_analytics: ""
-
 # Exclude files
 exclude:
   - README.md
-  - Gemfile
-  - Gemfile.lock
