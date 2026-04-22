@@ -2,7 +2,7 @@
 title: Sinhala Wal Katha 2026
 description: අලුත්ම සිංහල වල් කතා 2026 - Sinhala Wal Katha සහ Romantic කතා එකතුව
 url: "https://wal-katha.github.io"
-baseurl: "/sinhala-wal-katha-2026"
+baseurl: "/"
 
 # Language & Timezone
 lang: si
@@ -11,7 +11,7 @@ timezone: Asia/Colombo
 # Author
 author:
   name: Wal Katha
-  url: https://wal-katha.github.io/sinhala-wal-katha-2026/
+  url: https://wal-katha.github.io/
 
 # Exclude files
 exclude:
