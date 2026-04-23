@@ -13,6 +13,14 @@ author:
   name: Wal Katha
   url: https://wal-katha.github.io/
 
+# Plugins
+plugins:
+  - jekyll-sitemap
+  - jekyll-seo-tag
+
 # Exclude files
 exclude:
   - README.md
+  - Gemfile
+  - Gemfile.lock
+  - .github
