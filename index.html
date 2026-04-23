@@ -1,4 +1,3 @@
-```html
 <!DOCTYPE html>
 <html lang="si">
 <head>
@@ -7,14 +6,17 @@
     
     <title>Sinhala Wal Katha - අලුත්ම සිංහල වැල් කතා 2026 (Daily Updates)</title>
     <meta name="description" content="2026 හොඳම සිංහල වැල් කතා (Sinhala Wal Katha), අම්මා කතා සහ අලුත්ම රොමැන්ටික් wala katha එකතුව. දිනපතා අලුත් වන තාත්වික කතා කියවන්න අදම පිවිසෙන්න.">
-    <meta name="keywords" content="sinhala wal katha, wal katha, wala katha, ammapa katha, lankan stories, sinhala katha poth, sinhala wal katha 2026, අලුත් වැල් කතා, සිංහල වල් කතා, සිංහල වලා කතා">
+    <meta name="keywords" content="sinhala wal katha, wal katha, wala katha, ammapa katha, lankan stories, sinhala katha poth, sinhala wal katha 2026, srilankan wal katha, අලුත් වැල් කතා, සිංහල වල් කතා, සිංහල වලා කතා">
+    <meta name="author" content="Sinhala Wal Katha">
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
     <link rel="canonical" href="https://wal-katha.github.io/">
     <meta name="google-site-verification" content="UuKTkWg7Xh3ENF7elBwANx_zHnmZR6NyCXLJlJ_4QG4" />
+
     <link rel="manifest" href="manifest.json">
     <link rel="icon" type="image/jpeg" href="logo.jpg">
     <link rel="apple-touch-icon" href="logo.jpg">
     <meta name="theme-color" content="#d32f2f">
+
     <meta property="og:locale" content="si_LK">
     <meta property="og:type" content="website">
     <meta property="og:title" content="Sinhala Wal Katha - අලුත්ම සිංහල වැල් කතා 2026">
@@ -22,6 +24,7 @@
     <meta property="og:image" content="https://wal-katha.github.io/logo.jpg">
     <meta property="og:url" content="https://wal-katha.github.io/">
     <meta property="og:site_name" content="Sinhala Wal Katha">
+
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Sinhala Wal Katha - අලුත්ම සිංහල වැල් කතා 2026">
     <meta name="twitter:description" content="හොඳම සිංහල වැල් කතා සහ wala katha එකතුව. දිනපතා අලුත් වන කතා කියවන්න පිවිසෙන්න.">
@@ -67,6 +70,7 @@
             flex-direction: column;
             justify-content: center;
             overflow-x: hidden;
+            /* Disable selection */
             -webkit-user-select: none;
             -moz-user-select: none;
             -ms-user-select: none;
@@ -75,7 +79,6 @@
 
         .navbar {
             background: #0a0a0a;
-            color: var(--text);
             padding: 16px 20px;
             font-weight: bold;
             font-size: 20px;
@@ -89,20 +92,6 @@
         @keyframes fadeDown {
             from { opacity: 0; transform: translateY(-10px); }
             to { opacity: 1; transform: translateY(0); }
-        }
-        .navbar::after {
-            content: '';
-            position: absolute;
-            top: 0; left: -100%;
-            width: 50%;
-            height: 100%;
-            background: rgba(229,57,53,0.08);
-            transform: skewX(-20deg);
-            animation: navShine 4s infinite;
-        }
-        @keyframes navShine {
-            0% { left: -100%; }
-            100% { left: 250%; }
         }
 
         .hero {
@@ -130,13 +119,8 @@
             animation: none;
             width: 100%;
         }
-        @keyframes typingH1 {
-            from { width: 0; }
-            to { width: 100%; }
-        }
-        @keyframes blinkH1 {
-            50% { border-color: transparent; }
-        }
+        @keyframes typingH1 { from { width: 0; } to { width: 100%; } }
+        @keyframes blinkH1 { 50% { border-color: transparent; } }
 
         .hero p.subtitle {
             color: var(--muted);
@@ -179,18 +163,14 @@
             animation: blinkCursor 0.7s step-end infinite;
         }
         .type-cursor.hide { display: none; }
-        @keyframes blinkCursor {
-            50% { opacity: 0; }
-        }
+        @keyframes blinkCursor { 50% { opacity: 0; } }
 
         .btn-wrap {
             opacity: 0;
             animation: popIn 0.7s cubic-bezier(0.175,0.885,0.32,1.275) 3.8s forwards;
         }
         @keyframes popIn {
-            0%   { opacity: 0; transform: scale(0.5); }
-            60%  { opacity: 1; transform: scale(1.1); }
-            80%  { transform: scale(0.97); }
+            0% { opacity: 0; transform: scale(0.5); }
             100% { opacity: 1; transform: scale(1); }
         }
 
@@ -207,58 +187,17 @@
             font-weight: bold;
             position: relative;
             overflow: hidden;
-            transition: transform 0.15s ease, background 0.2s ease, box-shadow 0.2s ease;
+            transition: 0.2s;
         }
-        .main-btn.pulse {
-            animation: glow 2s ease-in-out infinite;
-        }
+        .main-btn.pulse { animation: glow 2s ease-in-out infinite; }
         @keyframes glow {
-            0%, 100% { box-shadow: 0 0 10px rgba(229,57,53,0.3), 0 0 20px rgba(229,57,53,0.1); }
-            50%       { box-shadow: 0 0 22px rgba(229,57,53,0.7), 0 0 45px rgba(229,57,53,0.3); }
-        }
-        .main-btn .btn-arrow {
-            display: inline-block;
-            animation: arrowBounce 1s ease-in-out infinite;
-        }
-        @keyframes arrowBounce {
-            0%, 100% { transform: translateX(0); }
-            50%       { transform: translateX(6px); }
-        }
-        .main-btn .ripple {
-            position: absolute;
-            border-radius: 50%;
-            background: rgba(255,255,255,0.35);
-            transform: scale(0);
-            animation: rippleAnim 0.55s linear;
-            pointer-events: none;
-        }
-        @keyframes rippleAnim {
-            to { transform: scale(4); opacity: 0; }
-        }
-        .main-btn:hover {
-            background: var(--primary-dark);
-            transform: scale(1.05);
-        }
-        .main-btn:active {
-            transform: scale(0.93) !important;
-            box-shadow: 0 0 8px rgba(229,57,53,0.6) !important;
-            animation: clickPop 0.3s ease forwards, glow 2s ease-in-out infinite !important;
-        }
-        @keyframes clickPop {
-            0%   { transform: scale(1); }
-            30%  { transform: scale(0.88); }
-            65%  { transform: scale(1.08); }
-            100% { transform: scale(1); }
+            0%, 100% { box-shadow: 0 0 10px rgba(229,57,53,0.3); }
+            50% { box-shadow: 0 0 25px rgba(229,57,53,0.6); }
         }
 
-        .ad-wrap {
-            width: 100%;
-            margin: 8px auto;
-            opacity: 0;
-            animation: fadeUp 1s ease 0.6s forwards;
-            position: relative;
-            z-index: 1;
-        }
+        .main-btn:hover { background: var(--primary-dark); transform: scale(1.05); }
+
+        .ad-wrap { width: 100%; margin: 8px auto; opacity: 0; animation: fadeUp 1s ease 0.6s forwards; }
 
         .footer {
             padding: 20px;
@@ -268,34 +207,18 @@
             background: #0a0a0a;
             opacity: 0;
             animation: fadeUp 1s ease 4.4s forwards;
-            position: relative;
-            z-index: 1;
         }
 
-        .particles {
-            position: fixed;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            pointer-events: none;
-            z-index: 0;
-            overflow: hidden;
-        }
-        .particle {
-            position: absolute;
-            bottom: -10px;
-            border-radius: 50%;
-            background: rgba(229,57,53,0.1);
-            animation: floatUp linear infinite;
-        }
+        .particles { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 0; overflow: hidden; }
+        .particle { position: absolute; bottom: -10px; border-radius: 50%; background: rgba(229,57,53,0.1); animation: floatUp linear infinite; }
         @keyframes floatUp {
-            0%   { transform: translateY(0) scale(1); opacity: 0.5; }
+            0% { transform: translateY(0) scale(1); opacity: 0.5; }
             100% { transform: translateY(-100vh) scale(0); opacity: 0; }
         }
-
-        .navbar, .hero, .footer, .ad-wrap { position: relative; z-index: 1; }
     </style>
 
     <script>
+        // Security: No Right Click, No Copy
         document.addEventListener('contextmenu', e => e.preventDefault());
         document.onkeydown = function(e) {
             if (e.ctrlKey && (e.keyCode===67||e.keyCode===86||e.keyCode===85||e.keyCode===83||(e.shiftKey&&e.keyCode===73))) return false;
@@ -305,17 +228,12 @@
 <body>
 
 <div class="particles" id="particles"></div>
-
 <div class="navbar">සිංහල වැල් කතා - 2026</div>
 
-<!-- BEGIN AADS AD UNIT 2435171 -->
 <div class="ad-wrap">
-    <div id="frame" style="width:100%;margin:auto;position:relative;z-index:99998;">
-        <iframe data-aa='2435171' src='//acceptable.a-ads.com/2435171/?size=Adaptive'
-            style='border:0;padding:0;width:70%;height:auto;overflow:hidden;display:block;margin:auto'></iframe>
-    </div>
+    <iframe data-aa='2435171' src='//acceptable.a-ads.com/2435171/?size=Adaptive'
+        style='border:0;padding:0;width:70%;height:auto;overflow:hidden;display:block;margin:auto'></iframe>
 </div>
-<!-- END AADS AD UNIT 2435171 -->
 
 <div class="hero">
     <h1 id="h1Text">සිංහල වැල් කතා (Sinhala Wal Katha)</h1>
@@ -327,27 +245,23 @@
 
     <div class="btn-wrap">
         <a href="https://www.xn--3zc2b5bl5c6a.com/" class="main-btn" id="mainBtn" rel="bookmark">
-            සියලුම කතා කියවන්න
-            <span class="btn-arrow">→</span>
+            සියලුම කතා කියවන්න →
         </a>
     </div>
 </div>
 
 <div class="footer">
     &copy; 2026 Sinhala Wal Katha Collection. All Rights Reserved.<br>
-    Providing best Wal Katha and Wala Katha experience for Sri Lankans.
-
-    <!-- BEGIN AADS AD UNIT 2435171 -->
+    The best Wala Katha experience for Sri Lankans.
+    
     <div class="ad-wrap" style="margin-top:14px;">
-        <div id="frame2" style="width:100%;margin:auto;position:relative;z-index:99998;">
-            <iframe data-aa='2435171' src='//acceptable.a-ads.com/2435171/?size=Adaptive'
-                style='border:0;padding:0;width:70%;height:auto;overflow:hidden;display:block;margin:auto'></iframe>
-        </div>
+        <iframe data-aa='2435171' src='//acceptable.a-ads.com/2435171/?size=Adaptive'
+            style='border:0;padding:0;width:70%;height:auto;overflow:hidden;display:block;margin:auto'></iframe>
     </div>
-    <!-- END AADS AD UNIT 2435171 -->
 </div>
 
 <script>
+    // Particle Generator
     const container = document.getElementById('particles');
     for (let i = 0; i < 20; i++) {
         const p = document.createElement('div');
@@ -357,6 +271,7 @@
         container.appendChild(p);
     }
 
+    // Typing Logic
     const h1El = document.getElementById('h1Text');
     setTimeout(() => { h1El.classList.add('done'); }, 3100);
 
@@ -375,19 +290,7 @@
             }
         }, 32);
     }, 3400);
-
-    const btn = document.getElementById('mainBtn');
-    btn.addEventListener('click', function(e) {
-        const ripple = document.createElement('span');
-        ripple.classList.add('ripple');
-        const rect = btn.getBoundingClientRect();
-        const size = Math.max(rect.width, rect.height);
-        ripple.style.cssText = `width:${size}px;height:${size}px;left:${e.clientX-rect.left-size/2}px;top:${e.clientY-rect.top-size/2}px`;
-        btn.appendChild(ripple);
-        setTimeout(() => ripple.remove(), 560);
-    });
 </script>
 
 </body>
 </html>
-```
