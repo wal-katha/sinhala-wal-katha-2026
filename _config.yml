@@ -23,4 +23,4 @@ exclude:
   - README.md
   - Gemfile
   - Gemfile.lock
-  - .github
+  - .github/workflows/jekyll-gh-pages.yml
