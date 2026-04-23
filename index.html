@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="si">
 <head>
@@ -70,7 +71,6 @@
             flex-direction: column;
             justify-content: center;
             overflow-x: hidden;
-            /* Disable selection */
             -webkit-user-select: none;
             -moz-user-select: none;
             -ms-user-select: none;
@@ -194,7 +194,6 @@
             0%, 100% { box-shadow: 0 0 10px rgba(229,57,53,0.3); }
             50% { box-shadow: 0 0 25px rgba(229,57,53,0.6); }
         }
-
         .main-btn:hover { background: var(--primary-dark); transform: scale(1.05); }
 
         .ad-wrap { width: 100%; margin: 8px auto; opacity: 0; animation: fadeUp 1s ease 0.6s forwards; }
@@ -218,7 +217,6 @@
     </style>
 
     <script>
-        // Security: No Right Click, No Copy
         document.addEventListener('contextmenu', e => e.preventDefault());
         document.onkeydown = function(e) {
             if (e.ctrlKey && (e.keyCode===67||e.keyCode===86||e.keyCode===85||e.keyCode===83||(e.shiftKey&&e.keyCode===73))) return false;
@@ -230,10 +228,14 @@
 <div class="particles" id="particles"></div>
 <div class="navbar">සිංහල වැල් කතා - 2026</div>
 
+<!-- BEGIN AADS AD UNIT 2435358 -->
 <div class="ad-wrap">
-    <iframe data-aa='2435171' src='//acceptable.a-ads.com/2435171/?size=Adaptive'
-        style='border:0;padding:0;width:70%;height:auto;overflow:hidden;display:block;margin:auto'></iframe>
+    <div id="frame" style="width:100%;margin:auto;position:relative;z-index:99998;">
+        <iframe data-aa='2435358' src='//acceptable.a-ads.com/2435358/?size=Adaptive'
+            style='border:0;padding:0;width:70%;height:auto;overflow:hidden;display:block;margin:auto'></iframe>
+    </div>
 </div>
+<!-- END AADS AD UNIT 2435358 -->
 
 <div class="hero">
     <h1 id="h1Text">සිංහල වැල් කතා (Sinhala Wal Katha)</h1>
@@ -253,15 +255,18 @@
 <div class="footer">
     &copy; 2026 Sinhala Wal Katha Collection. All Rights Reserved.<br>
     The best Wala Katha experience for Sri Lankans.
-    
+
+    <!-- BEGIN AADS AD UNIT 2435358 -->
     <div class="ad-wrap" style="margin-top:14px;">
-        <iframe data-aa='2435171' src='//acceptable.a-ads.com/2435171/?size=Adaptive'
-            style='border:0;padding:0;width:70%;height:auto;overflow:hidden;display:block;margin:auto'></iframe>
+        <div id="frame2" style="width:100%;margin:auto;position:relative;z-index:99998;">
+            <iframe data-aa='2435358' src='//acceptable.a-ads.com/2435358/?size=Adaptive'
+                style='border:0;padding:0;width:70%;height:auto;overflow:hidden;display:block;margin:auto'></iframe>
+        </div>
     </div>
+    <!-- END AADS AD UNIT 2435358 -->
 </div>
 
 <script>
-    // Particle Generator
     const container = document.getElementById('particles');
     for (let i = 0; i < 20; i++) {
         const p = document.createElement('div');
@@ -271,7 +276,6 @@
         container.appendChild(p);
     }
 
-    // Typing Logic
     const h1El = document.getElementById('h1Text');
     setTimeout(() => { h1El.classList.add('done'); }, 3100);
 
@@ -294,3 +298,4 @@
 
 </body>
 </html>
+```
