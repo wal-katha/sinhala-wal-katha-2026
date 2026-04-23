@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="si">
 <head>
@@ -72,7 +73,6 @@
             user-select: none;
         }
 
-        /* ===== NAVBAR ===== */
         .navbar {
             background: #0a0a0a;
             color: var(--text);
@@ -105,7 +105,6 @@
             100% { left: 250%; }
         }
 
-        /* ===== HERO ===== */
         .hero {
             flex: 1;
             display: flex;
@@ -115,7 +114,6 @@
             padding: 50px 20px 40px;
         }
 
-        /* ===== H1 — typewriter, cursor removed after done ===== */
         .hero h1 {
             font-size: clamp(20px, 5vw, 30px);
             color: var(--primary);
@@ -125,11 +123,8 @@
             border-right: 3px solid var(--primary);
             width: 0;
             text-shadow: 0 0 20px rgba(229,57,53,0.35);
-            animation:
-                typingH1 2.5s steps(40) 0.5s forwards,
-                blinkH1 0.7s step-end infinite;
+            animation: typingH1 2.5s steps(40) 0.5s forwards, blinkH1 0.7s step-end infinite;
         }
-        /* stop blinking and remove cursor after typing finishes */
         .hero h1.done {
             border-right: 3px solid transparent;
             animation: none;
@@ -143,7 +138,6 @@
             50% { border-color: transparent; }
         }
 
-        /* ===== SUBTITLE ===== */
         .hero p.subtitle {
             color: var(--muted);
             font-size: 16px;
@@ -156,7 +150,6 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* ===== INFO BOX ===== */
         .info-box {
             max-width: 580px;
             width: 90%;
@@ -176,7 +169,6 @@
             min-height: 60px;
         }
 
-        /* blinking cursor for info box — hidden once typing done */
         .type-cursor {
             display: inline-block;
             width: 2px;
@@ -186,14 +178,11 @@
             vertical-align: text-bottom;
             animation: blinkCursor 0.7s step-end infinite;
         }
-        .type-cursor.hide {
-            display: none;
-        }
+        .type-cursor.hide { display: none; }
         @keyframes blinkCursor {
             50% { opacity: 0; }
         }
 
-        /* ===== BUTTON ===== */
         .btn-wrap {
             opacity: 0;
             animation: popIn 0.7s cubic-bezier(0.175,0.885,0.32,1.275) 3.8s forwards;
@@ -220,8 +209,6 @@
             overflow: hidden;
             transition: transform 0.15s ease, background 0.2s ease, box-shadow 0.2s ease;
         }
-
-        /* glow pulse after button appears */
         .main-btn.pulse {
             animation: glow 2s ease-in-out infinite;
         }
@@ -229,7 +216,6 @@
             0%, 100% { box-shadow: 0 0 10px rgba(229,57,53,0.3), 0 0 20px rgba(229,57,53,0.1); }
             50%       { box-shadow: 0 0 22px rgba(229,57,53,0.7), 0 0 45px rgba(229,57,53,0.3); }
         }
-
         .main-btn .btn-arrow {
             display: inline-block;
             animation: arrowBounce 1s ease-in-out infinite;
@@ -238,8 +224,6 @@
             0%, 100% { transform: translateX(0); }
             50%       { transform: translateX(6px); }
         }
-
-        /* ripple layer */
         .main-btn .ripple {
             position: absolute;
             border-radius: 50%;
@@ -251,12 +235,10 @@
         @keyframes rippleAnim {
             to { transform: scale(4); opacity: 0; }
         }
-
         .main-btn:hover {
             background: var(--primary-dark);
             transform: scale(1.05);
         }
-        /* click pop effect */
         .main-btn:active {
             transform: scale(0.93) !important;
             box-shadow: 0 0 8px rgba(229,57,53,0.6) !important;
@@ -269,7 +251,6 @@
             100% { transform: scale(1); }
         }
 
-        /* ===== AD ===== */
         .ad-wrap {
             width: 100%;
             margin: 8px auto;
@@ -279,7 +260,6 @@
             z-index: 1;
         }
 
-        /* ===== FOOTER ===== */
         .footer {
             padding: 20px;
             font-size: 13px;
@@ -292,7 +272,6 @@
             z-index: 1;
         }
 
-        /* ===== PARTICLES ===== */
         .particles {
             position: fixed;
             top: 0; left: 0;
@@ -331,8 +310,10 @@
 
 <!-- BEGIN AADS AD UNIT 2435171 -->
 <div class="ad-wrap">
-    <iframe data-aa='2435171' src='https://acceptable.a-ads.com/2435171/?size=Adaptive'
-        style='border:0;padding:0;width:70%;height:auto;overflow:hidden;display:block;margin:auto'></iframe>
+    <div id="frame" style="width:100%;margin:auto;position:relative;z-index:99998;">
+        <iframe data-aa='2435171' src='//acceptable.a-ads.com/2435171/?size=Adaptive'
+            style='border:0;padding:0;width:70%;height:auto;overflow:hidden;display:block;margin:auto'></iframe>
+    </div>
 </div>
 <!-- END AADS AD UNIT 2435171 -->
 
@@ -355,16 +336,18 @@
 <div class="footer">
     &copy; 2026 Sinhala Wal Katha Collection. All Rights Reserved.<br>
     Providing best Wal Katha and Wala Katha experience for Sri Lankans.
+
     <!-- BEGIN AADS AD UNIT 2435171 -->
     <div class="ad-wrap" style="margin-top:14px;">
-        <iframe data-aa='2435171' src='https://acceptable.a-ads.com/2435171/?size=Adaptive'
-            style='border:0;padding:0;width:70%;height:auto;overflow:hidden;display:block;margin:auto'></iframe>
+        <div id="frame2" style="width:100%;margin:auto;position:relative;z-index:99998;">
+            <iframe data-aa='2435171' src='//acceptable.a-ads.com/2435171/?size=Adaptive'
+                style='border:0;padding:0;width:70%;height:auto;overflow:hidden;display:block;margin:auto'></iframe>
+        </div>
     </div>
     <!-- END AADS AD UNIT 2435171 -->
 </div>
 
 <script>
-    // ===== PARTICLES =====
     const container = document.getElementById('particles');
     for (let i = 0; i < 20; i++) {
         const p = document.createElement('div');
@@ -374,17 +357,12 @@
         container.appendChild(p);
     }
 
-    // ===== REMOVE H1 CURSOR AFTER TYPING =====
     const h1El = document.getElementById('h1Text');
-    // typing duration = 2.5s + 0.5s delay = 3s total
-    setTimeout(() => {
-        h1El.classList.add('done');
-    }, 3100);
+    setTimeout(() => { h1El.classList.add('done'); }, 3100);
 
-    // ===== TYPEWRITER — INFO BOX =====
     const infoText = "අපගේ වෙබ් අඩවියේ අලුත්ම වැල් කතා, අම්මා කතා සහ ආදර කතා සියල්ල දැන් සජීවීව කියවිය හැකිය. දිනපතා අලුත් වන කතා මාලා සඳහා පහත බොත්තම ක්ලික් කර පිවිසෙන්න.";
-    const typedEl  = document.getElementById('typedInfo');
-    const cursor   = document.getElementById('typeCursor');
+    const typedEl = document.getElementById('typedInfo');
+    const cursor  = document.getElementById('typeCursor');
     let idx = 0;
     setTimeout(() => {
         const timer = setInterval(() => {
@@ -392,18 +370,14 @@
                 typedEl.textContent += infoText[idx++];
             } else {
                 clearInterval(timer);
-                // hide cursor once done
                 cursor.classList.add('hide');
-                // start button pulse
                 document.getElementById('mainBtn').classList.add('pulse');
             }
         }, 32);
     }, 3400);
 
-    // ===== BUTTON RIPPLE + CLICK POP =====
     const btn = document.getElementById('mainBtn');
     btn.addEventListener('click', function(e) {
-        // ripple
         const ripple = document.createElement('span');
         ripple.classList.add('ripple');
         const rect = btn.getBoundingClientRect();
