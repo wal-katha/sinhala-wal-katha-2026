@@ -27,6 +27,8 @@ jobs:
         uses: cicirello/generate-sitemap@v1
         with:
           base-url-path: https://wal-katha.github.io/
+          # 404 පිටුව Google Index නොකළ යුතු නිසා එය සිතියමෙන් ඉවත් කරයි
+          exclude-files: "/404.html"
 
       - name: Commit and push sitemap
         run: |
