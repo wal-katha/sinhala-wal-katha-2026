@@ -27,8 +27,12 @@ jobs:
         uses: cicirello/generate-sitemap@v1
         with:
           base-url-path: https://wal-katha.github.io/
-          # 404 පිටුව Google Index නොකළ යුතු නිසා එය සිතියමෙන් ඉවත් කරයි
-          exclude-files: "/404.html"
+          # ක්‍රමය 1: සාමාන්‍ය path එකෙන් ඉවත් කිරීම
+          exclude-files: "404.html"
+          # ක්‍රමය 2: Root path එක හරහාම ඉවත් කිරීම (විවිධ අවස්ථා සඳහා)
+          exclude-paths: "/404.html"
+          # අමතර ආරක්ෂාවට: අනවශ්‍ය images සහ system files සිතියමට ඒම වැළැක්වීම
+          include-pdf: false
 
       - name: Commit and push sitemap
         run: |
