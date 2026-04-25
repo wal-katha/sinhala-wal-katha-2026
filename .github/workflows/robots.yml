@@ -1,0 +1,51 @@
+name: Generate SEO Files
+
+on:
+  push:
+    branches: ["main"]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  seo_job:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout the repo
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      # 404 පිටුව සිතියමට ඒම වැළැක්වීමට තාවකාලිකව නම වෙනස් කිරීම
+      - name: Temporarily hide 404
+        run: mv 404.html 404.html.tmp || echo "404.html not found"
+
+      # සයිට්මැප් එක සෑදීම
+      - name: Generate Sitemap
+        uses: cicirello/generate-sitemap@v1
+        with:
+          base-url-path: https://wal-katha.github.io/
+          include-pdf: false
+
+      # 404 පිටුව නැවත තිබුණු තැනටම ගෙන ඒම
+      - name: Restore 404
+        run: mv 404.html.tmp 404.html || echo "Nothing to restore"
+
+      # robots.txt එක ස්වයංක්‍රීයව සෑදීම
+      - name: Auto Generate Robots.txt
+        run: |
+          echo "User-agent: *" > robots.txt
+          echo "Allow: /" >> robots.txt
+          echo "Disallow: /404.html" >> robots.txt
+          echo "" >> robots.txt
+          echo "Sitemap: https://wal-katha.github.io/sitemap.xml" >> robots.txt
+
+      # වෙනස්කම් GitHub වෙත Push කිරීම
+      - name: Commit and push changes
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git add sitemap.xml robots.txt
+          git commit -m "SEO: Updated Sitemap and Robots.txt [skip ci]" || exit 0
+          git push
