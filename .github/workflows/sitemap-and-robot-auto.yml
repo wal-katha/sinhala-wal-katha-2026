@@ -1,0 +1,53 @@
+name: sitemap-and-robot-auto (Jekyll)
+
+on:
+  push:
+    branches: ["main"]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  seo_job:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      # 1. 404 පිටුව සිතියමට ඒම වැළැක්වීමට තාවකාලිකව නම වෙනස් කිරීම
+      - name: Temporarily hide 404
+        run: mv 404.html 404.html.tmp || echo "404.html not found"
+
+      # 2. සයිට්මැප් එක සෑදීම
+      - name: Generate Sitemap
+        uses: cicirello/generate-sitemap@v1
+        with:
+          base-url-path: https://wal-katha.github.io/
+          include-pdf: false
+
+      # 3. 404 පිටුව නැවත තිබුණු තැනටම ගෙන ඒම
+      - name: Restore 404
+        run: mv 404.html.tmp 404.html || echo "Nothing to restore"
+
+      # 4. Robots.txt එක ස්වයංක්‍රීයව සෑදීම
+      - name: Create Robots.txt
+        run: |
+          cat <<EOF > robots.txt
+          User-agent: *
+          Allow: /
+          Disallow: /404.html
+
+          Sitemap: https://wal-katha.github.io/sitemap.xml
+          EOF
+
+      # 5. සියල්ල එකවර Commit කර Push කිරීම
+      - name: Commit and push changes
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git add sitemap.xml robots.txt
+          git commit -m "SEO: Updated Sitemap and Robots.txt [skip ci]" || exit 0
+          git push
