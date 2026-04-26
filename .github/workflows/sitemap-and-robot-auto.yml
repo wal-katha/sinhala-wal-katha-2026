@@ -1,4 +1,4 @@
-name: sitemap-and-robot-auto (Jekyll)
+name: SEO - Sitemap & Robots.txt Auto Generator
 
 on:
   push:
@@ -11,31 +11,22 @@ permissions:
 jobs:
   seo_job:
     runs-on: ubuntu-latest
+    name: Generate Sitemap and Robots.txt
+
     steps:
+
+      # ✅ Step 1: Full history checkout (lastmod dates accurate වෙන්න)
       - name: Checkout Repository
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
-      # 1. 404 පිටුව සිතියමට ඒම වැළැක්වීමට තාවකාලිකව නම වෙනස් කිරීම
-      - name: Temporarily hide 404
-        run: mv 404.html 404.html.tmp || echo "404.html not found"
-
-      # 2. සයිට්මැප් එක සෑදීම
-      - name: Generate Sitemap
-        uses: cicirello/generate-sitemap@v1
-        with:
-          base-url-path: https://wal-katha.github.io/
-          include-pdf: false
-
-      # 3. 404 පිටුව නැවත තිබුණු තැනටම ගෙන ඒම
-      - name: Restore 404
-        run: mv 404.html.tmp 404.html || echo "Nothing to restore"
-
-      # 4. Robots.txt එක ස්වයංක්‍රීයව සෑදීම
-      - name: Create Robots.txt
+      # ✅ Step 2: robots.txt FIRST හදනවා
+      # cicirello action robots.txt read කර Disallow paths auto-exclude කරනවා
+      # Google spec: Sitemap directive case-sensitive "Sitemap:" විය යුතුයි
+      - name: Create robots.txt
         run: |
-          cat <<EOF > robots.txt
+          cat > robots.txt << 'EOF'
           User-agent: *
           Allow: /
           Disallow: /404.html
@@ -43,11 +34,38 @@ jobs:
           Sitemap: https://wal-katha.github.io/sitemap.xml
           EOF
 
-      # 5. සියල්ල එකවර Commit කර Push කිරීම
-      - name: Commit and push changes
+      # ✅ Step 3: Sitemap generate කරනවා
+      # robots.txt කලින් හැදූ නිසා /404.html auto-excluded
+      # date-only: true → Google preferred clean date format
+      # drop-html-extension: false → wal-katha.github.io/index.html → /
+      - name: Generate Sitemap
+        id: sitemap
+        uses: cicirello/generate-sitemap@v1
+        with:
+          base-url-path: https://wal-katha.github.io/
+          include-pdf: false
+          date-only: true
+
+      # ✅ Step 4: Debug - URLs count check
+      - name: Show Sitemap Stats
+        run: |
+          echo "✅ Sitemap generated!"
+          echo "📄 URLs included : ${{ steps.sitemap.outputs.url-count }}"
+          echo "⛔ URLs excluded : ${{ steps.sitemap.outputs.excluded-count }}"
+          echo ""
+          echo "=== sitemap.xml ==="
+          cat sitemap.xml
+          echo ""
+          echo "=== robots.txt ==="
+          cat robots.txt
+
+      # ✅ Step 5: Commit & Push
+      # changes නැත්නම් commit නොකරයි ([skip ci] → infinite loop නැහැ)
+      - name: Commit and Push
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           git add sitemap.xml robots.txt
-          git commit -m "SEO: Updated Sitemap and Robots.txt [skip ci]" || exit 0
+          git diff --staged --quiet && echo "No changes" || \
+          git commit -m "SEO: Auto-update sitemap.xml and robots.txt [skip ci]" && \
           git push
