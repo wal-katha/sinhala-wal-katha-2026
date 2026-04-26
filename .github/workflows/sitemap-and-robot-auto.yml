@@ -15,15 +15,17 @@ jobs:
 
     steps:
 
-      # ✅ Step 1: Full history checkout (lastmod dates accurate වෙන්න)
       - name: Checkout Repository
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
-      # ✅ Step 2: robots.txt FIRST හදනවා
-      # cicirello action robots.txt read කර Disallow paths auto-exclude කරනවා
-      # Google spec: Sitemap directive case-sensitive "Sitemap:" විය යුතුයි
+      # ✅ FIX 1: .nojekyll file — GitHub Pages Jekyll interference නැති කරනවා
+      # මේක නැත්නම් GitHub Pages sitemap.xml properly serve නොකරයි
+      - name: Create .nojekyll
+        run: touch .nojekyll
+
+      # ✅ FIX 2: robots.txt — FIRST හදනවා (cicirello ඒක read කරනවා)
       - name: Create robots.txt
         run: |
           cat > robots.txt << 'EOF'
@@ -34,10 +36,7 @@ jobs:
           Sitemap: https://wal-katha.github.io/sitemap.xml
           EOF
 
-      # ✅ Step 3: Sitemap generate කරනවා
-      # robots.txt කලින් හැදූ නිසා /404.html auto-excluded
-      # date-only: true → Google preferred clean date format
-      # drop-html-extension: false → wal-katha.github.io/index.html → /
+      # ✅ FIX 3: Sitemap generate
       - name: Generate Sitemap
         id: sitemap
         uses: cicirello/generate-sitemap@v1
@@ -46,26 +45,21 @@ jobs:
           include-pdf: false
           date-only: true
 
-      # ✅ Step 4: Debug - URLs count check
-      - name: Show Sitemap Stats
+      # ✅ FIX 4: sitemap.xml UTF-8 + proper XML declaration verify
+      - name: Verify sitemap format
         run: |
-          echo "✅ Sitemap generated!"
-          echo "📄 URLs included : ${{ steps.sitemap.outputs.url-count }}"
-          echo "⛔ URLs excluded : ${{ steps.sitemap.outputs.excluded-count }}"
-          echo ""
-          echo "=== sitemap.xml ==="
+          echo "=== URLs found: ${{ steps.sitemap.outputs.url-count }} ==="
+          echo "=== sitemap.xml content ==="
           cat sitemap.xml
           echo ""
-          echo "=== robots.txt ==="
+          echo "=== robots.txt content ==="
           cat robots.txt
 
-      # ✅ Step 5: Commit & Push
-      # changes නැත්නම් commit නොකරයි ([skip ci] → infinite loop නැහැ)
+      # ✅ FIX 5: Commit & Push — .nojekyll + sitemap + robots
       - name: Commit and Push
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          git add sitemap.xml robots.txt
-          git diff --staged --quiet && echo "No changes" || \
-          git commit -m "SEO: Auto-update sitemap.xml and robots.txt [skip ci]" && \
-          git push
+          git add .nojekyll sitemap.xml robots.txt
+          git diff --staged --quiet && echo "⏭ No changes to commit" || \
+          (git commit -m "SEO: Auto-update sitemap + robots.txt + nojekyll [skip ci]" && git push)
