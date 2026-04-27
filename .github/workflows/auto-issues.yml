@@ -1,4 +1,3 @@
-
 name: 🚀 Autonomous SEO Health Monitor 2026
 
 on:
@@ -37,8 +36,6 @@ jobs:
 
       - name: 🔍 Detect Site Type
         id: site_type
-        # ✅ KEY FIX: shell: bash {0} — set -e සහ pipefail disable කරනවා
-        # grep exit code 2 වුනත් workflow fail නොවේ
         shell: bash {0}
         run: |
           if [ -f "_config.yml" ] || [ -f "Gemfile" ]; then
@@ -82,7 +79,6 @@ jobs:
             PAGE_CONTENT=""
           fi
 
-          # ✅ FIX: grep exit code capture — 0,1,2 handle separately
           TITLE=""
           if [ -n "$PAGE_CONTENT" ]; then
             TITLE=$(echo "$PAGE_CONTENT" | grep -oP '(?<=<title>)[^<]*' | head -1 | xargs 2>/dev/null)
@@ -113,13 +109,11 @@ jobs:
           KEYWORDS=$(echo "$KEYWORDS"   | tr -d '\n\r%')
           CANONICAL=$(echo "$CANONICAL" | tr -d '\n\r%')
 
-          # ✅ FIX: grep -c exit code 1 or 2 → default 0 (|| echo "0")
           LINK_COUNT=0
           if [ -n "$PAGE_CONTENT" ]; then
             LINK_COUNT=$(echo "$PAGE_CONTENT" | grep -c 'href=' || echo "0")
           fi
 
-          # ✅ FIX: sitemap curl + grep -c safe handling
           SITEMAP=$(curl -sL --max-time 15 "${URL}sitemap.xml" || echo "")
           POST_COUNT=0
           if [ -n "$SITEMAP" ]; then
@@ -165,6 +159,9 @@ jobs:
           echo "✅ Title='${TITLE}' | Links=${LINK_COUNT} | Posts=${POST_COUNT}"
           exit 0
 
+      # ✅ FIX: daily_date සහ weekly_full ද should_run=true වෙනවා
+      # කලින් version හිදී schedule mode හිදී post count change නැතිනම්
+      # should_run=false වී issue title update නොවූ bug එක fix කළා
       - name: 🆕 Detect Content Change (Cache)
         id: new_content
         shell: bash {0}
@@ -187,14 +184,17 @@ jobs:
           CURRENT_NUM="${CURRENT_COUNT:-0}"
           PREV_NUM="${PREV_COUNT:-0}"
 
+          # ✅ KEY FIX: daily_date + weekly_full ද සෑම විටම should_run=true
           if [ "$MODE" = "push_check" ] || \
              [ "$MODE" = "manual" ] || \
+             [ "$MODE" = "daily_date" ] || \
+             [ "$MODE" = "weekly_full" ] || \
              [ "$FORCE" = "true" ] || \
              [ "$CURRENT_NUM" -gt "$PREV_NUM" ]; then
             echo "should_run=true"   >> "$GITHUB_OUTPUT"
             DIFF=$(( CURRENT_NUM - PREV_NUM ))
             echo "post_diff=${DIFF}" >> "$GITHUB_OUTPUT"
-            echo "✅ Will create/update issue."
+            echo "✅ Will create/update issue. Mode=${MODE}"
           else
             echo "should_run=false"  >> "$GITHUB_OUTPUT"
             echo "post_diff=0"       >> "$GITHUB_OUTPUT"
@@ -426,8 +426,14 @@ jobs:
           fi
           exit 0
 
+      # ✅ NOTE: daily_date step තවදුරටත් අවශ්‍ය නෑ —
+      # should_run=true fix නිසා "Create or Update" step ම
+      # daily_date හිදීත් title + body update කරනවා
+      # නමුත් backward compat සඳහා රැඳෙනවා (should_run check add කළා)
       - name: 📅 Daily Title Date Update
-        if: steps.run_mode.outputs.mode == 'daily_date'
+        if: |
+          steps.run_mode.outputs.mode == 'daily_date' &&
+          steps.new_content.outputs.should_run == 'true'
         shell: bash {0}
         env:
           GH_TOKEN:   ${{ secrets.GITHUB_TOKEN }}
