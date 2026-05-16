@@ -5,7 +5,6 @@ description: "ශ්‍රී ලංකාවේ අංක 1 sinhala wal katha �
 sitemap: true
 ---
 
-<!DOCTYPE html>
 <html lang="si" prefix="og: https://ogp.me/ns# article: https://ogp.me/ns/article#">
 <head>
     <meta charset="UTF-8">
